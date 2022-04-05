@@ -13,7 +13,7 @@ class LivroUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,13 @@ class LivroUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nome'      => 'required|string',
+            'autor'     => 'required|string',
+            'categoria' => 'required|string',
+            'codigo'    => 'required|string|unique:livros,codigo,'.$this->livro->id,
+            'tipo'      => 'required|string',
+            'tamanho'   => 'required|decimal',
+
         ];
     }
 }

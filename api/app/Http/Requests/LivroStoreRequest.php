@@ -28,7 +28,7 @@ class LivroStoreRequest extends FormRequest
             'nome'      => 'required|string',
             'autor'     => 'required|string',
             'categoria' => 'required|string',
-            'codigo'    => 'required|string',
+            'codigo'    => 'required|string|unique:livros,codigo,',
             'tipo'      => 'required|string',
             'tamanho'   => 'required|decimal',
     
