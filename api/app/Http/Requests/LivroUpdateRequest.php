@@ -24,12 +24,14 @@ class LivroUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'nome'      => 'required|string',
-            'autor'     => 'required|string',
-            'categoria' => 'required|string',
-            'codigo'    => 'required|string|unique:livros,codigo,'.$this->livro->id,
-            'tipo'      => 'required|string',
-            'tamanho'   => 'required|decimal',
+            'nome'          => 'required|string',
+            'autor'         => 'required|string',
+            'categoria'     => 'required|string',
+            'codigo'        => 'required|string|unique:livros,codigo,'.$this->livro->id,
+            'tipo'          => 'required|string',
+            'tamanho'       => 'required|decimal',
+            'created_at'    => 'string',
+            'updated_at'    => 'string',
 
         ];
     }
