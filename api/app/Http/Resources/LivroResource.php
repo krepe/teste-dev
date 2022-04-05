@@ -14,6 +14,16 @@ class LivroResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id'            => (integer)$this->id,
+            'nome'          => (string)$this->nome,
+            'autor'         => (string)$this->autor,
+            'categoria'     => (string)$this->categoria,
+            'codigo'        => (string)$this->codigo,
+            'tipo'          => (string)$this->tipo,
+            'tamanho'       => $this->tamanho,
+            'created_at'    => date('d/m/Y H:i:s', strtotime($this->created_at)),
+            'updated_at'    => date('d/m/Y H:i:s', strtotime($this->updated_at)),
+        ];
     }
 }
