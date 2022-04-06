@@ -24,13 +24,13 @@ class LivroStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'id'            => 'required|integer',
+//            'id'            => 'required|integer',
             'nome'          => 'required|string',
             'autor'         => 'required|string',
             'categoria'     => 'required|string',
             'codigo'        => 'required|string|unique:livros,codigo,',
             'tipo'          => 'required|string',
-            'tamanho'       => 'required|decimal',
+            'tamanho'       => 'required|numeric',
             'created_at'    => 'string',
             'updates_at'    => 'string',
     

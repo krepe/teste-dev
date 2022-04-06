@@ -29,7 +29,7 @@ class LivroUpdateRequest extends FormRequest
             'categoria'     => 'required|string',
             'codigo'        => 'required|string|unique:livros,codigo,'.$this->livro->id,
             'tipo'          => 'required|string',
-            'tamanho'       => 'required|decimal',
+            'tamanho'       => 'required|numeric',
             'created_at'    => 'string',
             'updated_at'    => 'string',
 
