@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Livro;
+use App\Http\Requests\LivroStoreRequest;
+use App\Http\Requests\LivroUpdateRequest;
+use App\Http\Resources\LivroResource;
+use Illuminate\Support\Str;
 
 class LivroController extends Controller
 {
@@ -13,7 +18,23 @@ class LivroController extends Controller
      */
     public function index()
     {
-        //
+        $per_page = \Request::get('perpage') ?: 15;
+        $orderby = \Request::get('orderby') ?: 'id';
+        $order = \Request::get('order') ?: 'asc';
+        $search = \Request::get('search') ?: '';
+
+        if (Str::length($search) > 0){
+            return LivroResource::collection(Livro::where('id', 'like', '%'.$search.'%')
+                                                    ->orWhere('autor', 'like', '%'.$search.'%')
+                                                    ->orWhere('nome', 'like', '%'.$search.'%')
+                                                    ->orWhere('categoria', 'like', '%'.$search.'%')
+                                                    ->orWhere('codigo', 'like', '%'.$search.'%')
+                                                    ->orWhere('tipo', 'like', '%'.$search.'%')
+                                                    ->orderBy( $orderby, $order)->paginate($per_page));
+        }else{
+            return LivroResource::collection(Livro::orderBy( $orderby, $order)->paginate($per_page));
+        }
+        return LivroResource::collection(Livro::paginate(20));
     }
 
     /**
@@ -22,9 +43,12 @@ class LivroController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LivroStoreRequest $request)
     {
-        //
+        $input = $request->validated();
+        $Livro = new Livro($input);
+        $Livro->save();
+        return new LivroResource($Livro);
     }
 
     /**
@@ -33,9 +57,9 @@ class LivroController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Livro $Livro)
     {
-        //
+        return new LivroResource($Livro);
     }
 
     /**
@@ -45,9 +69,15 @@ class LivroController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Livro $Livro, LivroUpdateRequest $request)
     {
-        //
+        $input = $request->validated();
+
+        $Livro->fill($input);
+        $Livro->save();
+
+        return new LivroResource($Livro->fresh());
+
     }
 
     /**
@@ -56,8 +86,8 @@ class LivroController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Livro $Livro)
     {
-        //
+        $Livro->delete();
     }
 }
