@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('table_livros', function (Blueprint $table) {
+        Schema::create('livros', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
             $table->string('autor');
             $table->string('categoria');
             $table->string('codigo')->unique();
             $table->set('tipo',['Digital','Fisico']);
-            $table->unsignedDecimal('tamanho', 8, 6);
+            $table->unsignedDecimal('tamanho', 8, 2);
             $table->timestamps();
         });
     }
