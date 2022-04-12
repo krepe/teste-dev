@@ -27,6 +27,25 @@
 Sua [Api](http://localhost) agora está rodando faça o [Teste](http://localhost/api/v1/livros) para retornar os livros cadastrados.
 
 
+**Front-End**
+1. Instalação de todos os packages
+
+   ```bash
+   npm install
+   ```
+
+2. Executar servidor de desenvolvimento
+
+   ```bash
+   npm run serve
+   ```
+
+3. Gerar arquivos de compilação para implantação
+
+   ```bash
+   npm run build
+   ```
+
 
 # Teste para candidatos à vaga de Desenvolvedor Full Stack.
 
