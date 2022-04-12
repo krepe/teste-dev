@@ -1,3 +1,33 @@
+# Instruções para rodar as aplicações:
+
+**Back-End**
+1. Você pode instalar as dependências do aplicativo navegando até o diretório 'api' e executar o seguinte comando. Este comando usa um pequeno container Docker contendo PHP e Composer para instalar as dependências do aplicativo:
+
+    ```bash
+        docker run --rm \
+            -u "$(id -u):$(id -g)" \
+            -v $(pwd):/var/www/html \
+            -w /var/www/html \
+            laravelsail/php81-composer:latest \
+            composer install --ignore-platform-reqs
+    ```
+2. Configuração do servidor web.
+
+    ```bash
+        cp .env.example .env
+    ```
+3. Subindo a aplicação e gerando a chave
+    ```bash
+
+        ./vendor/bin/sail up - d
+
+        ./vendor/bin/sail art key:generate
+    ```
+
+Sua [Api](http://localhost) agora está rodando faça o [Teste](http://localhost/api/v1/livros) para retornar os livros cadastrados.
+
+
+
 # Teste para candidatos à vaga de Desenvolvedor Full Stack.
 
 Olá, caro desenvolvedor, nesse teste analisaremos seu conhecimento geral e velocidade de desenvolvimento. Abaixo explicaremos tudo o que será necessário.
